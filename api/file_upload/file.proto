@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package demo.file_upload;
+
+option go_package = "/api/file_upload;file_upload";
+import "google/api/annotations.proto";
+
+service FileUploadService {
+  rpc UploadFile (UploadFileRequest) returns (UploadFileReply) {
+    option (google.api.http) = {
+      post: "/api/v1/file/upload",
+      body: "*"
+    };
+  }
+}
+
+message UploadFileRequest {
+  // id
+  string id = 1;
+  // 文件内容
+  bytes file_content = 2;
+}
+
+message UploadFileReply {
+  // 文件路径
+  string file_path = 1;
+}

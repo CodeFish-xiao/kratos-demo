@@ -1,0 +1,46 @@
+# Generated with protoc-gen-openapi
+# https://github.com/peroperogames/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: FileUploadService API
+    version: 0.0.1
+paths:
+    /api/v1/file/upload:
+        post:
+            tags:
+                - FileUploadService
+            operationId: FileUploadService_UploadFile
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/demo.file_upload.UploadFileRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/demo.file_upload.UploadFileReply'
+components:
+    schemas:
+        demo.file_upload.UploadFileReply:
+            type: object
+            properties:
+                filePath:
+                    type: string
+                    description: 文件路径
+        demo.file_upload.UploadFileRequest:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: id
+                fileContent:
+                    type: string
+                    description: 文件内容
+                    format: bytes
+tags:
+    - name: FileUploadService
