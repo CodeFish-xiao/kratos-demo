@@ -1,0 +1,14 @@
+syntax = "proto3";
+package base;
+
+option go_package = "../http_encoder;http_encoder";
+import "google/protobuf/any.proto";
+// BaseResponse is the  base response
+message BaseResponse{
+  int32  code = 1 [json_name = "code"];
+  google.protobuf.Any data = 2 [json_name = "data"];
+  string msg=3[json_name = "msg"];
+  string ts=4[json_name = "ts"];
+  string reason=5[json_name = "reason"];
+  string request_id=6[json_name = "request_id"];
+}

@@ -6,6 +6,7 @@ import (
 	"kratos-demo/internal/conf"
 	"kratos-demo/internal/service"
 	"kratos-demo/pkg/my_encode"
+	"kratos-demo/pkg/server/op/http_encoder"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
@@ -18,6 +19,8 @@ func NewHTTPServer(c *conf.Server, greeter *service.FileUploadService, logger lo
 		http.Middleware(
 			recovery.Recovery(),
 		),
+		http.ResponseEncoder(http_encoder.MyResponseEncoder),
+		http.ErrorEncoder(http_encoder.MyErrorResponseEncoder),
 	}
 	if c.Http.Network != "" {
 		opts = append(opts, http.Network(c.Http.Network))
