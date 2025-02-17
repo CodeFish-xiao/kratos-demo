@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package demo.redirect;
+
+option go_package = "/api/redirect;redirect";
+import "google/api/annotations.proto";
+
+service RedirectService {
+  rpc Redirect (RedirectRequest) returns (RedirectReply) {
+    option (google.api.http) = {
+      get: "/api/v1/redirect",
+    };
+  }
+}
+
+message RedirectRequest {
+  string redirect_url = 2;
+}
+
+message RedirectReply {
+  // 跳转地址
+  string redirect_to = 1;
+  // 状态码
+  int32 status_code = 2;
+}

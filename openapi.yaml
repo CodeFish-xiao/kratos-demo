@@ -3,7 +3,7 @@
 
 openapi: 3.0.3
 info:
-    title: FileUploadService API
+    title: ""
     version: 0.0.1
 paths:
     /api/v1/file/upload:
@@ -24,6 +24,23 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/demo.file_upload.UploadFileReply'
+    /api/v1/redirect:
+        get:
+            tags:
+                - RedirectService
+            operationId: RedirectService_Redirect
+            parameters:
+                - name: redirectUrl
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/demo.redirect.RedirectReply'
 components:
     schemas:
         demo.file_upload.UploadFileReply:
@@ -42,5 +59,16 @@ components:
                     type: string
                     description: 文件内容
                     format: bytes
+        demo.redirect.RedirectReply:
+            type: object
+            properties:
+                redirectTo:
+                    type: string
+                    description: 跳转地址
+                statusCode:
+                    type: integer
+                    description: 状态码
+                    format: int32
 tags:
     - name: FileUploadService
+    - name: RedirectService

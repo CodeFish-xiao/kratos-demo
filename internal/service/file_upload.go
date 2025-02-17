@@ -16,11 +16,11 @@ type FileUploadService struct {
 }
 
 func (f FileUploadService) UploadFile(ctx context.Context, request *file_upload.UploadFileRequest) (*file_upload.UploadFileReply, error) {
-
 	req, ok := http.RequestFromServerContext(ctx)
 	if !ok {
 		return nil, errors.New("http.RequestFromContext error")
 	}
+	// 设置内存大小
 	err := req.ParseMultipartForm(32 << 20)
 	if err != nil {
 		return nil, err
@@ -29,7 +29,14 @@ func (f FileUploadService) UploadFile(ctx context.Context, request *file_upload.
 	if len(fil) == 0 {
 		return nil, errors.New("file_content is empty")
 	}
-
+	for _, header := range fil {
+		// 打开文件
+		file, err := header.Open()
+		if err != nil {
+			return nil, err
+		}
+		defer file.Close()
+	}
 	return &file_upload.UploadFileReply{}, nil
 }
 
